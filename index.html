@@ -17,8 +17,8 @@
 <body>
     <div id="login-container">
         <h2>Iniciar Sesión</h2>
-        <input type="email" id="email" placeholder="Correo electrónico" required><br><br>
-        <input type="password" id="password" placeholder="Contraseña" required><br><br>
+        <input type="email" id="email" placeholder="Correo electrónico" required autocomplete="username"><br><br>
+        <input type="password" id="loginPassword" placeholder="Contraseña" required autocomplete="current-password"><br><br>
         <button id="login-button">Iniciar Sesión</button>
     </div>
 
@@ -43,25 +43,25 @@
                 <h2>Crear Solicitud</h2>
                 <form id="solicitudForm">
                     <label for="dispositivo">Dispositivo:</label>
-                    <input type="text" id="dispositivo" required><br><br>
+                    <input type="text" id="dispositivo" required autocomplete="off"><br><br>
                     <label for="imei">IMEI:</label>
-                    <input type="text" id="imei" required><br><br>
+                    <input type="text" id="imei" required autocomplete="off"><br><br>
                     <label for="descripcion">Descripción del Problema:</label>
-                    <textarea id="descripcion" required></textarea><br><br>
-                    <label for="password">Contraseña del Equipo:</label>
-                    <input type="password" id="password" required><br><br>
+                    <textarea id="descripcion" required autocomplete="off"></textarea><br><br>
+                    <label for="equipoPassword">Contraseña del Equipo:</label>
+                    <input type="password" id="equipoPassword" required autocomplete="off"><br><br>
                     <label for="servicios">Servicios:</label>
-                    <input type="text" id="servicios" required><br><br>
+                    <input type="text" id="servicios" required autocomplete="off"><br><br>
                     <label for="presupuesto">Presupuesto:</label>
-                    <input type="number" id="presupuesto" required><br><br>
+                    <input type="number" id="presupuesto" required autocomplete="off"><br><br>
                     <label for="imagenes">Imágenes:</label>
-                    <input type="file" id="imagenes" accept="image/*" multiple><br><br>
+                    <input type="file" id="imagenes" accept="image/*" multiple autocomplete="off"><br><br>
                     <label for="fechaIngreso">Fecha de Ingreso:</label>
-                    <input type="date" id="fechaIngreso" required><br><br>
+                    <input type="date" id="fechaIngreso" required autocomplete="off"><br><br>
                     <label for="fechaCompromiso">Fecha de Compromiso:</label>
-                    <input type="date" id="fechaCompromiso" required><br><br>
+                    <input type="date" id="fechaCompromiso" required autocomplete="off"><br><br>
                     <label for="notas">Notas:</label>
-                    <textarea id="notas"></textarea><br><br>
+                    <textarea id="notas" autocomplete="off"></textarea><br><br>
                     <button type="submit">Enviar Solicitud</button>
                 </form>
             </div>
