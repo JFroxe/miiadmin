@@ -2,100 +2,45 @@ const SUPABASE_URL = 'https://edqvnhqcwiaqvgxfoesn.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVkcXZuaHFjd2lhcXZneGZvZXNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMxMzkzNTYsImV4cCI6MjA1ODcxNTM1Nn0.7CGCjT8hauwYXdWQ52OeNCRBq0fIBTjrfya-pUHxDT8';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+const loginRegisterContainer = document.getElementById('login-register-container');
 const loginContainer = document.getElementById('login-container');
-const appContainer = document.getElementById('app-container');
+const registerContainer = document.getElementById('register-container');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('loginPassword');
 const loginButton = document.getElementById('login-button');
-const solicitudesList = document.getElementById('solicitudes-list');
-const openModalButton = document.getElementById('open-modal');
-const solicitudModal = document.getElementById('solicitudModal');
-const closeModalButton = document.querySelector('.close');
-const solicitudForm = document.getElementById('solicitudForm');
+const registerEmailInput = document.getElementById('registerEmail');
+const registerPasswordInput = document.getElementById('registerPassword');
+const registerButton = document.getElementById('register-button');
+const registerLink = document.getElementById('register-link');
+const loginLink = document.getElementById('login-link');
 
-let user = null;
+// ... (El resto del código para la aplicación permanece igual)
 
-async function fetchSolicitudes() {
-    const { data, error } = await supabase
-        .from('solicitudes')
-        .select('*')
-        .eq('user_id', user.id);
-
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    solicitudesList.innerHTML = '';
-    data.forEach(solicitud => {
-        const li = document.createElement('li');
-        li.textContent = `${solicitud.dispositivo} - ${solicitud.descripcion}`;
-        solicitudesList.appendChild(li);
-    });
-}
-
-loginButton.addEventListener('click', async () => {
-    const email = emailInput.value;
-    const password = passwordInput.value;
-
-    const { user: supabaseUser, error } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) {
-        console.error(error);
-        alert('Error al iniciar sesión.');
-        return;
-    }
-
-    user = supabaseUser;
-    loginContainer.style.display = 'none';
-    appContainer.style.display = 'block';
-    fetchSolicitudes();
-});
-
-openModalButton.addEventListener('click', () => {
-    solicitudModal.style.display = 'block';
-});
-
-closeModalButton.addEventListener('click', () => {
-    solicitudModal.style.display = 'none';
-});
-
-solicitudForm.addEventListener('submit', async (event) => {
+registerLink.addEventListener('click', (event) => {
     event.preventDefault();
+    loginContainer.style.display = 'none';
+    registerContainer.style.display = 'block';
+});
 
-    const dispositivo = document.getElementById('dispositivo').value;
-    const imei = document.getElementById('imei').value;
-    const descripcion = document.getElementById('descripcion').value;
-    const password = document.getElementById('equipoPassword').value;
-    const servicios = document.getElementById('servicios').value;
-    const presupuesto = document.getElementById('presupuesto').value;
-    const fechaIngreso = document.getElementById('fechaIngreso').value;
-    const fechaCompromiso = document.getElementById('fechaCompromiso').value;
-    const notas = document.getElementById('notas').value;
+loginLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    registerContainer.style.display = 'none';
+    loginContainer.style.display = 'block';
+});
 
-    const { data, error } = await supabase
-        .from('solicitudes')
-        .insert([{
-            dispositivo, imei, descripcion, password, servicios, presupuesto, fechaIngreso, fechaCompromiso, notas, user_id: user.id
-        }]);
+registerButton.addEventListener('click', async () => {
+    const email = registerEmailInput.value;
+    const password = registerPasswordInput.value;
+
+    const { user, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
         console.error(error);
-        alert('Error al enviar la solicitud.');
+        alert('Error al registrar usuario.');
         return;
     }
 
-    solicitudModal.style.display = 'none';
-    solicitudForm.reset();
-    fetchSolicitudes();
-});
-
-document.querySelectorAll('.tab-button').forEach(button => {
-    button.addEventListener('click', () => {
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-        button.classList.add('active');
-        document.getElementById(button.dataset.tab).classList.add('active');
-    });
+    alert('Usuario registrado correctamente. Inicia sesión.');
+    registerContainer.style.display = 'none';
+    loginContainer.style.display = 'block';
 });
