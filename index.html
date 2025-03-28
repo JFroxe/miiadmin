@@ -4,33 +4,69 @@
     <title>Solicitud de Reparación</title>
     <style>
         body { font-family: sans-serif; padding: 20px; }
-        form { display: flex; flex-direction: column; max-width: 400px; }
-        label { margin-top: 10px; }
-        textarea { min-height: 100px; }
+        .tab-menu { display: flex; }
+        .tab-button { padding: 10px 20px; cursor: pointer; }
+        .tab-content { display: none; }
+        .active { display: block; }
+        .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
+        .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
+        .close:hover, .close:focus { color: black; text-decoration: none; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h1>Solicitud de Reparación</h1>
-    <form id="solicitudForm">
-        <label for="modelo">Modelo del Teléfono:</label>
-        <input type="text" id="modelo" required><br><br>
+    <div id="login-container">
+        <h2>Iniciar Sesión</h2>
+        <input type="email" id="email" placeholder="Correo electrónico" required><br><br>
+        <input type="password" id="password" placeholder="Contraseña" required><br><br>
+        <button id="login-button">Iniciar Sesión</button>
+    </div>
 
-        <label for="descripcion">Descripción del Problema:</label>
-        <textarea id="descripcion" required></textarea><br><br>
+    <div id="app-container" style="display: none;">
+        <div class="tab-menu">
+            <button class="tab-button active" data-tab="solicitudes">Solicitudes</button>
+            <button class="tab-button" data-tab="crear">Crear</button>
+        </div>
 
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" required><br><br>
+        <div id="solicitudes" class="tab-content active">
+            <h2>Solicitudes</h2>
+            <ul id="solicitudes-list"></ul>
+        </div>
 
-        <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" required><br><br>
+        <div id="crear" class="tab-content">
+            <button id="open-modal">Crear Solicitud</button>
+        </div>
 
-        <label for="imagen">Adjuntar Imagen (Opcional):</label>
-        <input type="file" id="imagen" accept="image/*"><br><br>
-
-        <button type="submit">Enviar Solicitud</button>
-    </form>
-
-    <div id="mensaje"></div>
+        <div id="solicitudModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Crear Solicitud</h2>
+                <form id="solicitudForm">
+                    <label for="dispositivo">Dispositivo:</label>
+                    <input type="text" id="dispositivo" required><br><br>
+                    <label for="imei">IMEI:</label>
+                    <input type="text" id="imei" required><br><br>
+                    <label for="descripcion">Descripción del Problema:</label>
+                    <textarea id="descripcion" required></textarea><br><br>
+                    <label for="password">Contraseña del Equipo:</label>
+                    <input type="password" id="password" required><br><br>
+                    <label for="servicios">Servicios:</label>
+                    <input type="text" id="servicios" required><br><br>
+                    <label for="presupuesto">Presupuesto:</label>
+                    <input type="number" id="presupuesto" required><br><br>
+                    <label for="imagenes">Imágenes:</label>
+                    <input type="file" id="imagenes" accept="image/*" multiple><br><br>
+                    <label for="fechaIngreso">Fecha de Ingreso:</label>
+                    <input type="date" id="fechaIngreso" required><br><br>
+                    <label for="fechaCompromiso">Fecha de Compromiso:</label>
+                    <input type="date" id="fechaCompromiso" required><br><br>
+                    <label for="notas">Notas:</label>
+                    <textarea id="notas"></textarea><br><br>
+                    <button type="submit">Enviar Solicitud</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script src="script.js"></script>
