@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chat en Tiempo Real</title>
-    <style>
-        #mensajes {
-            height: 300px;
-            overflow-y: scroll;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>Solicitud de Reparación</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <div id="mensajes"></div>
-    <input type="text" id="mensajeInput">
-    <button id="enviarBtn">Enviar</button>
+    <h1>Solicitud de Reparación</h1>
+    <form id="solicitudForm">
+        <label for="modelo">Modelo del Teléfono:</label>
+        <input type="text" id="modelo" required><br><br>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+        <label for="descripcion">Descripción del Problema:</label>
+        <textarea id="descripcion" required></textarea><br><br>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required><br><br>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" required><br><br>
+
+        <label for="imagen">Adjuntar Imagen (Opcional):</label>
+        <input type="file" id="imagen" accept="image/*"><br><br>
+
+        <button type="submit">Enviar Solicitud</button>
+    </form>
+
+    <div id="mensaje"></div>
+
     <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
 </body>
 </html>
