@@ -5,7 +5,7 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const loginContainer = document.getElementById('login-container');
 const appContainer = document.getElementById('app-container');
 const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('loginPassword'); // Corregido el id
+const passwordInput = document.getElementById('loginPassword');
 const loginButton = document.getElementById('login-button');
 const solicitudesList = document.getElementById('solicitudes-list');
 const openModalButton = document.getElementById('open-modal');
@@ -66,7 +66,7 @@ solicitudForm.addEventListener('submit', async (event) => {
     const dispositivo = document.getElementById('dispositivo').value;
     const imei = document.getElementById('imei').value;
     const descripcion = document.getElementById('descripcion').value;
-    const password = document.getElementById('equipoPassword').value; // Corregido el id
+    const password = document.getElementById('equipoPassword').value;
     const servicios = document.getElementById('servicios').value;
     const presupuesto = document.getElementById('presupuesto').value;
     const fechaIngreso = document.getElementById('fechaIngreso').value;
@@ -93,4 +93,9 @@ solicitudForm.addEventListener('submit', async (event) => {
 document.querySelectorAll('.tab-button').forEach(button => {
     button.addEventListener('click', () => {
         document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        button.classList.add('active');
+        document.getElementById(button.dataset.tab).classList.add('active');
+    });
+});
